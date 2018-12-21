@@ -75,10 +75,10 @@ RUN groupadd --gid 3434 circleci \
 
 # BEGIN IMAGE CUSTOMIZATIONS
 
-# Install Maven Version: 3.2.5
+# Install Maven Version: 3.6.0
 RUN curl --silent --show-error --location --fail --retry 3 --output \
   /tmp/apache-maven.tar.gz \
-  https://www.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz \
+  https://www.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz \
   && tar xf /tmp/apache-maven.tar.gz -C /opt/  \
   && rm /tmp/apache-maven.tar.gz \
   && ln -s /opt/apache-maven-* /opt/apache-maven \
