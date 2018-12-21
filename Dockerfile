@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk:latest
+FROM azul/zulu-openjdk:7
 
 # Ref: https://github.com/CircleCI-Public/circleci-dockerfiles/
 
@@ -75,19 +75,19 @@ RUN groupadd --gid 3434 circleci \
 
 # BEGIN IMAGE CUSTOMIZATIONS
 
-# Install Maven Version: 3.6.0
+# Install Maven Version: 3.5.4
 RUN curl --silent --show-error --location --fail --retry 3 --output \
   /tmp/apache-maven.tar.gz \
-  https://www.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz \
+  https://www.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz \
   && tar xf /tmp/apache-maven.tar.gz -C /opt/  \
   && rm /tmp/apache-maven.tar.gz \
   && ln -s /opt/apache-maven-* /opt/apache-maven \
   && /opt/apache-maven/bin/mvn -version
 
-# Install Ant Version: 1.10.1
+# Install Ant Version: 1.9.13
 RUN curl --silent --show-error --location --fail --retry 3 --output \
   /tmp/apache-ant.tar.gz    \
-  https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz \
+  https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.13-bin.tar.gz \
   && tar xf /tmp/apache-ant.tar.gz -C /opt/ \
   && ln -s /opt/apache-ant-* /opt/apache-ant \
   && rm -rf /tmp/apache-ant.tar.gz \
@@ -103,21 +103,13 @@ RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/gradle.
   && ln -s /opt/gradle-* /opt/gradle \
   && /opt/gradle/bin/gradle -version
 
-# Install sbt from https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/sbt-latest.tgz
-RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/sbt.tgz \
-  https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/sbt-latest.tgz \
-  && tar -xzf /tmp/sbt.tgz -C /opt/ \
-  && rm /tmp/sbt.tgz \
-  && /opt/sbt/bin/sbt sbtVersion
-
 # Update PATH for Java tools
-ENV PATH="/opt/sbt/bin:/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
+ENV PATH="/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
 
 # smoke test with path
 RUN mvn -version \
   && ant -version \
-  && gradle -version \
-  && sbt sbtVersion
+  && gradle -version
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
