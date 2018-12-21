@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk:latest
+FROM azul/zulu-openjdk:8
 
 # Ref: https://github.com/CircleCI-Public/circleci-dockerfiles/
 
