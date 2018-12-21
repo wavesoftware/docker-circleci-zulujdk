@@ -95,21 +95,12 @@ RUN curl --silent --show-error --location --fail --retry 3 --output \
 
 ENV ANT_HOME=/opt/apache-ant
 
-# Install Gradle Version: 2.14.1
-RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/gradle.zip \
-  https://services.gradle.org/distributions/gradle-2.14.1-bin.zip \
-  && unzip -d /opt /tmp/gradle.zip \
-  && rm /tmp/gradle.zip \
-  && ln -s /opt/gradle-* /opt/gradle \
-  && /opt/gradle/bin/gradle -version
-
 # Update PATH for Java tools
-ENV PATH="/opt/sbt/bin:/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
+ENV PATH="/opt/apache-maven/bin:/opt/apache-ant/bin:$PATH"
 
 # smoke test with path
 RUN mvn -version \
-  && ant -version \
-  && gradle -version
+  && ant -version
 # END IMAGE CUSTOMIZATIONS
 
 USER circleci
