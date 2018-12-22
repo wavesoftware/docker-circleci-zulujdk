@@ -95,9 +95,9 @@ RUN curl --silent --show-error --location --fail --retry 3 --output \
 
 ENV ANT_HOME=/opt/apache-ant
 
-# Install Gradle Version: 4.4
+# Install Gradle Version: 4.10.3
 RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/gradle.zip \
-  https://services.gradle.org/distributions/gradle-4.4-bin.zip \
+  https://services.gradle.org/distributions/gradle-4.10.3-bin.zip \
   && unzip -d /opt /tmp/gradle.zip \
   && rm /tmp/gradle.zip \
   && ln -s /opt/gradle-* /opt/gradle \
