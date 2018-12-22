@@ -105,4 +105,7 @@ RUN mvn -version \
 
 USER circleci
 
+RUN mkdir -p ~/.m2
+COPY settings.xml /home/circleci/.m2/settings.xml
+
 CMD ["/bin/sh"]
